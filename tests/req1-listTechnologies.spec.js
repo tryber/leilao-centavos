@@ -29,10 +29,10 @@ describe('1 - Liste as tecnologias', () => {
 
     const participantNames = await page.$$eval(dataTestid('current-name-'), (nodes) => nodes.map((n) => n.innerText));
 
-    expect(participantNames[0]).toMatch('HTML');
+    expect(participantNames[0]).toMatch('PHP');
     expect(participantNames[1]).toMatch('CSS');
     expect(participantNames[2]).toMatch('JS');
-    expect(participantNames[3]).toMatch('Node');
+    expect(participantNames[3]).toMatch('Go');
     expect(participantNames[4]).toMatch('React');
     expect(participantNames[5]).toMatch('Python');
   });

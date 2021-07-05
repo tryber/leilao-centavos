@@ -2,8 +2,8 @@ use tecRank;
 
 db.languages.insertMany([
   {
-    name: 'HTML',
-    image: 'https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582748_1280.png',
+    name: 'PHP',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/1920px-PHP-logo.svg.png',
     votes: 0,
   },
   {
@@ -17,8 +17,8 @@ db.languages.insertMany([
     votes: 0,
   },
   {
-    name: 'Node',
-    image: 'https://walde.co/wp-content/uploads/2016/09/nodejs_logo.png',
+    name: 'Go',
+    image: 'https://storage.ning.com/topology/rest/1.0/file/get/8170567668?profile=RESIZE_710x',
     votes: 0,
   },
   {
