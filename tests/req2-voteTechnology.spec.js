@@ -1,6 +1,3 @@
-require('dotenv').config();
-
-const { expect } = require('@jest/globals');
 const puppeteer = require('puppeteer');
 const resetDB = require('./actions/resetDB');
 
@@ -29,35 +26,37 @@ describe('2 - Votar', () => {
     done();
   });
 
-  it('Será validado que ao votar em um participante o número de votos deve aumentar', async() => {
+  it('Será validado que ao votar em uma tecnologia o número de votos deve aumentar para qualquer pessoa online', async() => {
     await page.waitForTimeout(500);
     let currentVotes = await getCurrentVotes(page, 0);
-    // Current votes is 0
+    
+    // Contagem atual é 0
     expect(currentVotes).toEqual('0');
 
-    // User from page 1 votes once
-    const buttonVote1 = await page.$(`button${dataTestid('vote-participant-0')}`);
+    // Usuário 1 vota uma vez
+    const buttonVote1 = await page.$(`button${dataTestid('vote-tech-0')}`);
     buttonVote1.click();
     await page.waitForTimeout(500);
     
     currentVotes = await getCurrentVotes(page, 0);
     expect(currentVotes).toEqual('1');
 
-    // User from page 1 votes again
+    // Usuário 1 vota novamente
     buttonVote1.click();
     await page.waitForTimeout(500);
     currentVotes = await getCurrentVotes(page, 0);
     expect(currentVotes).toEqual('2');
 
 
-    // User from page 1 votes again
+    // Usuário 1 vota novamente
     buttonVote1.click();
     await page.waitForTimeout(500);
     currentVotes = await getCurrentVotes(page, 0);
     expect(currentVotes).toEqual('3');
 
-    // User from page 2 should see current votes
-    const page2 = await browser.newPage();
+    // Usuário 2 acessa e deve verificar a quantidade correta de votos que ocorreram
+    const context = await browser.createIncognitoBrowserContext();
+    const page2 = await context.newPage();
     await page2.setCacheEnabled(false);
     await page2.goto(BASE_URL);
     await page2.waitForTimeout(500);
@@ -65,20 +64,20 @@ describe('2 - Votar', () => {
     currentVotes = await getCurrentVotes(page2, 0);
     expect(currentVotes).toEqual('3');
 
-    // Participant 1 should have 0 votes
+    // Tecnologia 1 deve ter 0 votos
     currentVotes = await getCurrentVotes(page2, 1);
     expect(currentVotes).toEqual('0');
 
-    // User from page 2 vote in participant 2
-    const buttonVote2 = await page.$(`button${dataTestid('vote-participant-1')}`);
+    // Usuário 2 (page2) deve votar na segunda tecnologia 2
+    const buttonVote2 = await page.$(`button${dataTestid('vote-tech-1')}`);
     buttonVote2.click();
     await page2.waitForTimeout(500);
 
-    // Participant 1 should have 1 vote in page 2
+    // Usuário 2 (page2) deve ver o voto computado do usuário 2 na tecnologia 2
     currentVotes = await getCurrentVotes(page2, 1);
     expect(currentVotes).toEqual('1');
 
-    // Participant 1 should have 1 vote in page 1
+    // Usuário 1 (page) deve ver o voto computado do usuário 2 na tecnologia 2
     await page.bringToFront();
     await page.waitForTimeout(500);
     currentVotes = await getCurrentVotes(page, 1);

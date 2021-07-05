@@ -1,26 +1,41 @@
 const { MongoClient } = require('mongodb');
 
 module.exports = async () => {
-  connection = await MongoClient.connect(process.env.DB_URL, {
+  connection = await MongoClient.connect('mongodb://127.0.0.1:27017', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  db = connection.db(process.env.DB_NAME);
-  await db.collection('participants').deleteMany({});
-  await db.collection('participants').insertMany([
+  db = connection.db('tecRank');
+  await db.collection('languages').deleteMany({});
+  await db.collection('languages').insertMany([
     {
-      name: 'Tanjiro Kamado',
-      image: 'https://i.pinimg.com/originals/3f/b9/76/3fb976d3ce6f8a993f01da944c71cf41.jpg',
+      name: 'HTML',
+      image: 'https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582748_1280.png',
       votes: 0,
     },
     {
-      name: 'Nezuko Kamado',
-      image: 'https://i.pinimg.com/originals/89/f6/2a/89f62aeb5b2c134b5c592e2023a283da.jpg',
+      name: 'CSS',
+      image: 'https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582747_960_720.png',
       votes: 0,
     },
     {
-      name: 'Inosuke Hashibira',
-      image: 'https://sketchok.com/images/articles/06-anime/026-demon-slayer/03/16.jpg',
+      name: 'JS',
+      image: 'https://i0.wp.com/pt.mundobabushka.com/wp-content/uploads/sites/5/2016/03/js-logo.png',
+      votes: 0,
+    },
+    {
+      name: 'Node',
+      image: 'https://walde.co/wp-content/uploads/2016/09/nodejs_logo.png',
+      votes: 0,
+    },
+    {
+      name: 'React',
+      image: 'https://www.pinclipart.com/picdir/middle/537-5374089_react-js-logo-clipart.png',
+      votes: 0,
+    },
+    {
+      name: 'Python',
+      image: 'https://www.pngfind.com/pngs/m/62-626208_python-logo-png-transparent-background-python-logo-png.png',
       votes: 0,
     }
   ]);

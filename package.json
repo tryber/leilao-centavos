@@ -1,5 +1,5 @@
 {
-  "name": "paredao-bb-io",
+  "name": "leilao-tec",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,15 +7,20 @@
     "test": "tests"
   },
   "dependencies": {
-    "mongodb": "^3.6.6"
+    "bootstrap": "4.6.0",
+    "mongodb": "3.6.6",
+    "react-bootstrap": "^1.6.1",
+    "socket.io-client": "^4.1.2"
   },
   "devDependencies": {
-    "dotenv": "^9.0.0",
     "jest": "26.6.0",
     "jest-puppeteer": "4.4.0",
     "puppeteer": "5.3.1"
   },
   "scripts": {
+    "stop": "npx pm2 stop pm2.dev.config.yml | grep 'PM2'",
+    "start": "npx pm2 start pm2.dev.config.yml | grep 'PM2'",
+    "install": "npm --prefix=back-end i & npm --prefix=front-end i",
     "test": "jest --runInBand  --detectOpenHandles --forceExit"
   },
   "keywords": [],

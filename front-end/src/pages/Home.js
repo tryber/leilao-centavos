@@ -1,44 +1,42 @@
 import React, { useEffect, useState } from 'react';
 
-import { Column } from 'rbx';
+import { CardDeck } from 'react-bootstrap';
 
-import ProductCard from '../components/ProductCard';
-
-import { io } from 'socket.io-client';
-
-const socket = io('http://localhost:3001')
+import LanguageCard from '../components/LanguageCard';
 
 function Home() {
-  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [languages, setLanguages] = useState([]);
   
   useEffect(() => {
-    fetch('http://localhost:3001/products')
+    setIsLoading(true);
+    fetch('http://localhost:3001/languages')
       .then((response) => response.json())
-      .then((data) => {
-        setProducts(data);
+      .then((languages) => {
+        setIsLoading(false);
+        setLanguages(languages);
       });
   }, []);
 
   return (
-    <>
-      <h1>Participantes</h1>
+    <div>
+      <h1>Escolha sua linguagem favorita:</h1>
 
-      <Column.Group>
-        {products.map(({_id, name, image, votes, arremate, currentAuction}, index) => (
-          <Column key={_id}>
-            <ProductCard data-test-id='participant'
-              index={index}
-              id={_id}
-              name={name} 
-              image={image}
-              votes={votes}
-              auction={currentAuction}
-              arremate={arremate}
-              winner={false} />
-          </Column>
-        ))}
-      </Column.Group>
-    </>
+      {isLoading ? <p>Carregando</p>
+        : ( 
+          <CardDeck>
+            {languages.map(({_id, name, image, votes}, index) => (
+              <LanguageCard
+                key={_id}
+                index={index}
+                id={_id}
+                name={name} 
+                image={image}
+                votes={votes} />
+            ))}
+          </CardDeck>
+      )}
+    </div>
   );
 }
 

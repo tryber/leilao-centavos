@@ -2,22 +2,19 @@
   "name": "back-end",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/api/server.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongodb": "^3.6.6",
-    "mysql2": "^2.2.5",
-    "socket.io": "^4.0.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.7"
+    "mongodb": "^3.6.9",
+    "socket.io": "^4.1.2"
   }
 }
