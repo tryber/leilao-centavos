@@ -68,16 +68,16 @@ describe('2 - Votar', () => {
     currentVotes = await getCurrentVotes(page2, 1);
     expect(currentVotes).toEqual('0');
 
-    // Usuário 2 (page2) deve votar na segunda tecnologia 2
+    // Usuário 1 (page) deve votar na segunda tecnologia
     const buttonVote2 = await page.$(`button${dataTestid('vote-tech-1')}`);
     buttonVote2.click();
     await page2.waitForTimeout(500);
 
-    // Usuário 2 (page2) deve ver o voto computado do usuário 2 na tecnologia 2
+    // Usuário 2 (page2) deve ver o voto computado do usuário 1 na segunda tecnologia
     currentVotes = await getCurrentVotes(page2, 1);
     expect(currentVotes).toEqual('1');
 
-    // Usuário 1 (page) deve ver o voto computado do usuário 2 na tecnologia 2
+    // Usuário 1 (page) deve ver o voto computado do usuário 1 na segunda tecnologia
     await page.bringToFront();
     await page.waitForTimeout(500);
     currentVotes = await getCurrentVotes(page, 1);
